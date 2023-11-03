@@ -38,7 +38,7 @@ export default function SignUp() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const result = await signup({...formData, gender: getGender(formData.gender)});
-    if (result === "") navigate('/sign-in'); //logged in
+    if (result === "") navigate('/login'); //logged in
     else alert(result);
     // alert(result);
   }
@@ -143,7 +143,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link component={RouterLink} to='/sign-in' variant="body2">
+                <Link component={RouterLink} to='/login' variant="body2">
                   ¿Ya tienes una cuenta? Inicia sesión
                 </Link>
               </Grid>

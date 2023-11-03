@@ -7,7 +7,7 @@ const SignInButton = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/sign-in');
+    navigate('/login');
   };
 
   return (

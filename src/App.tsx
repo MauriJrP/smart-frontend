@@ -11,8 +11,8 @@ import Home from './pages/HomePage/Home';
 import PlansPage from './pages/PlansPage/PlansPage';
 import PlacePage from './pages/PlacePage/PlacePage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
-import SignIn from './pages/SignInPage/SignIn';
-import SignUp from './pages/SignUpPage/SignUp';
+import Login from './pages/LoginPage/Login';
+import Register from './pages/RegisterPage/Register';
 import { ProtectedRoutes } from './ProtectedRoutes';
 import { PlansProvider } from './context/Plans/PlansProvider';
 import { PlaceProvider } from './context/Place/PlaceProvider';
@@ -28,8 +28,8 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Navigate to="/home" />} />
               <Route path="/tourist-guide" element={<Navigate to="/home" />} />
-              <Route path="/sign-in" element={<SignIn />} />
-              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
               <Route path="/home" element={<Home/>} />
               <Route element={<ProtectedRoutes />} >

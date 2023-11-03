@@ -4,7 +4,7 @@ import Account from "./Account"
 
 export default function Navbar() {
   const navigate = useNavigate();
-  let admin = true;
+  let admin = false;
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const name = (e.target as HTMLButtonElement).name
@@ -17,8 +17,8 @@ export default function Navbar() {
     <div className="bg-navbar text-white flex justify-center md:justify-between p-4 items-center h-16">
       <div className="w-2/5 h-full hidden md:inline">
         <Link className="flex max-w-full w-max h-full gap-5 items-center" to="/home">
-          <img src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg" alt="Logo del Gobierno" className=" h-full" />
-          <h1 className=" text-2xl uppercase">Guía turística</h1>
+          {/* <img src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg" alt="Logo del Gobierno" className=" h-full" /> */}
+          <h1 className=" text-2xl uppercase">SMART</h1>
         </Link>
       </div>
       <ButtonGroup variant="text" aria-label="text button group">

@@ -35,7 +35,7 @@ export default function AccountMenu() {
   const handleSignOutClick = () => {
     handleClose();
     logout();
-    navigate('/sign-in');
+    navigate('/login');
   };
 
   return (
