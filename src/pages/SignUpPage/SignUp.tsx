@@ -5,7 +5,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {useForm} from '../../hooks/useForm';
 
-import Copyright from '../../components/Copyright';
 import { useAuth } from '../../hooks/useAuth';
 
 const theme = createTheme();
@@ -151,7 +150,6 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

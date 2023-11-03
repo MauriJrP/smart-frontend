@@ -7,7 +7,6 @@ import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
 import { useAuth } from '../../hooks/useAuth';
 
-import Copyright from '../../components/Copyright';
 
 const theme = createTheme();
 
@@ -101,7 +100,6 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
