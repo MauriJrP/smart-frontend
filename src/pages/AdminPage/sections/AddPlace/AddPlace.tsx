@@ -1,3 +1,6 @@
+// void file
+export default function AddPlace() {}
+
 // import {FormEvent, ChangeEvent, useState, useEffect} from 'react';
 // import {Box, Grid, Button, TextField, MenuItem} from '@mui/material';
 // import {useForm} from '../../../../hooks/useForm';

@@ -27,10 +27,7 @@ export default function App() {
           <Route element={<ProtectedRoutes />} >
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/admin/*" element={<AdminPage />}>
-              {/* <Route path="add-place" element={<AddPlace />} />
-              <Route path="update-place" element={<UpdatePlace />} />
-              <Route path="remove-place" element={<RemovePlace />} />
-              <Route path="user-sanction" element={<UserSanction />} /> */}
+              {/* <Route path="add-place" element={<AddPlace />} /> */}
             </Route>
           </Route>
         </Routes>

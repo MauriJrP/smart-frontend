@@ -2,7 +2,7 @@ import { Stack, Card,  CardContent, Divider, Rating, Avatar } from '@mui/materia
 import { useAuth } from '../../hooks/useAuth';
 import { IUser } from '../../types'
 // import { users } from '../../data'
-import UpdateInfo from './components/UpdateInfo'
+// import UpdateInfo from './components/UpdateInfo'
 
 
 export default function ProfilePage() {
@@ -19,13 +19,13 @@ export default function ProfilePage() {
         </div>
           <div className="flex flex-col p-2">
             <p className="ml-2 text-gray-700">Correo: {user.email}</p>
-            <p className="ml-2 text-gray-700">Edad: {user.age}</p>
+            {/* <p className="ml-2 text-gray-700">Edad: {user.age}</p> */}
             <p className="ml-2 text-gray-700">Password: {user.password}</p>
-            <p className="ml-2 text-gray-700">Genero: {user.gender}</p>
-            <p className="ml-2 text-gray-700">Rol: {user.role}</p>
+            {/* <p className="ml-2 text-gray-700">Genero: {user.gender}</p> */}
+            {/* <p className="ml-2 text-gray-700">Rol: {user.role}</p> */}
             {/* <p className="ml-2 text-gray-700">Rol: {user.}</p> */}
           </div>
-          <UpdateInfo/>
+          {/* <UpdateInfo/> */}
       </CardContent>
     </Card>
   )

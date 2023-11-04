@@ -41,7 +41,7 @@ export const AuthProvider = ({children}: IProps) => {
         ...credentials,
       }
 
-      // dispatch({type: 'login', payload: user})
+      dispatch({type: 'login', payload: user})
       return "";
       
     } catch (err: any) {
