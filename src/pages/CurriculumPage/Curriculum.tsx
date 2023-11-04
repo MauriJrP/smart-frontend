@@ -7,12 +7,14 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import { useAuth } from "../../hooks/useAuth";
 import {useNavigate} from 'react-router-dom';
+import { useCookies } from "react-cookie";
 
 
 export default function Curriculum() {
   const [places, setPlaces] = useState<IPlace[]>([]);
   const [page, setPage] = useState<number>(1);
   const {auth} = useAuth();
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,7 +42,7 @@ export default function Curriculum() {
     const config = {
       headers: {
         'Content-type': 'application/json',
-        'Authorization': `Bearer ${document.cookie.split('=')[1]}`
+        'Authorization': `Bearer ${cookies.token}`
       }
     }
     const body = {...filters};

@@ -4,15 +4,16 @@ import { useForm } from '../../../../hooks/useForm';
 
 import axios from 'axios';
 import { useAuth } from '../../../../hooks/useAuth';
+import { useCookies } from 'react-cookie';
 
 
 export default function Curriculums() {
     const [curriculums, setCurriculums] = useState<any[]>([] as any[]);
     const { auth } = useAuth();
-    console.log(`Bearer ${document.cookie}`)
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const config = {
         headers: {
-            'Authorization': `Bearer ${document.cookie.split('=')[1]}`,
+            'Authorization': `Bearer ${cookies.token}`
         }
     }
 

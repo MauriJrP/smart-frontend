@@ -4,6 +4,8 @@ import { IAuth, IUser } from '../../types'
 import { ICredentials, INewUser } from '../types'
 import {AuthContext} from './AuthContext'
 import { AuthReducer } from './AuthReducer'
+import { useCookies } from 'react-cookie'
+
 
 interface IProps {
   children: JSX.Element | JSX.Element[]
@@ -15,6 +17,8 @@ const initialState: IAuth = {
 
 export const AuthProvider = ({children}: IProps) => {
   const [auth, dispatch] = useReducer(AuthReducer, initialState);
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+
   const config = {
     headers: {
       'Content-type': 'application/json',
@@ -28,7 +32,8 @@ export const AuthProvider = ({children}: IProps) => {
       const body = {...credentials}
 
       const data = await (await axios.post(url, body, config)).data;
-      if (data.token) document.cookie = `token=${data.token}; max-age=${60*10}; path=/; samesite=strict`
+      // if (data.token) document.cookie = `token=${data.token}; max-age=${60*10}; path=/; samesite=strict`
+      if (data.token) setCookie('token', data.token, {path: '/', maxAge: 60*10, sameSite: 'strict'})
       else return data.message;
 
       const currentUserUrl = `${process.env.REACT_APP_API_URL}/auth/getcurrentuser`;
