@@ -1,4 +1,4 @@
-import { IComment, IUser} from './types';
+import { IUser} from './types';
 
 // export const comments: IComment[] = [
 //   {

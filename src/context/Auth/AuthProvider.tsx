@@ -38,7 +38,6 @@ export const AuthProvider = ({children}: IProps) => {
   
       const user: IUser = {
         ...data.user,
-        role: (data.user.idRole === 1) ? "Usuario" : "Admin",
         ...credentials,
       }
 
@@ -70,7 +69,7 @@ export const AuthProvider = ({children}: IProps) => {
 
   const updateUser = async (name: string, email: string, password: string) => {
     try {
-      const url = `${process.env.REACT_APP_API_URL}/user/${auth.user?.idUser}`;
+      const url = `${process.env.REACT_APP_API_URL}/user`;
       const body = {name, email, password};
 
       // console.log(await axios.post(url,body,config));

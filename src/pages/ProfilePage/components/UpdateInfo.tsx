@@ -28,7 +28,7 @@ export default function UpdateInfo() {
   // console.log(user);
 
   const initialState: IFormData = {
-    name: user.name,
+    name: user.first_name,
     email: user.email,
     password: user.password,
   }
