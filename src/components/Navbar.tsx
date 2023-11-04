@@ -8,7 +8,7 @@ export default function Navbar() {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const name = (e.target as HTMLButtonElement).name
-    if (name === "Home") navigate("/home")
+    if (name === "Curriculum") navigate("/curriculum")
     else if (name === "Plans") navigate("/plans")
     else if (name === "Admin") navigate("/admin")
   };
@@ -16,14 +16,14 @@ export default function Navbar() {
   return (
     <div className="bg-navbar text-white flex justify-center md:justify-between p-4 items-center h-16">
       <div className="w-2/5 h-full hidden md:inline">
-        <Link className="flex max-w-full w-max h-full gap-5 items-center" to="/home">
+        <Link className="flex max-w-full w-max h-full gap-5 items-center" to="/curriculum">
           {/* <img src="https://framework-gb.cdn.gob.mx/landing/img/logoheader.svg" alt="Logo del Gobierno" className=" h-full" /> */}
           <h1 className=" text-2xl uppercase">SMART</h1>
         </Link>
       </div>
       <ButtonGroup variant="text" aria-label="text button group">
         {admin && <Button className="text-white" onClick={handleClick} name="Admin">Admin</Button>}
-        <Button className="text-white" onClick={handleClick} name="Home">Inicio</Button>
+        <Button className="text-white" onClick={handleClick} name="Curriculum">Inicio</Button>
         {/* <Button className="text-white" onClick={handleClick} name="Plans">Planes</Button> */}
         <Account />
       </ButtonGroup>

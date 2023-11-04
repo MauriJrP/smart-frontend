@@ -5,14 +5,28 @@ import PlaceCard from "./components/PlaceCard";
 import {IFilters, IPlace} from "./types";
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import { useAuth } from "../../hooks/useAuth";
+import {useNavigate} from 'react-router-dom';
 
 
-export default function Home() {
+export default function Curriculum() {
   const [places, setPlaces] = useState<IPlace[]>([]);
   const [page, setPage] = useState<number>(1);
+  const {auth} = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const url = `${process.env.REACT_APP_API_URL}/places/page/${page}`;
+    if (auth.user){
+      if (auth.user.roles?.find(role => role === "admin")) {
+        navigate('/admin')
+        return;
+      } else if (auth.user.roles?.find(role => role === "coordinator" || role === "assistant")) {
+        navigate('/smart')
+        return;
+      }
+    }
+
+    const url = `${process.env.REACT_APP_API_URL}/curriculums`;
     const fetchPlaces = async () => {
       const res = await (await axios.get(url)).data;
       setPlaces(res.places);
@@ -22,10 +36,11 @@ export default function Home() {
   }, [])
 
   const search = (filters: IFilters) => {
-    const url = `${process.env.REACT_APP_API_URL}/places/page/${page}`;
+    const url = `${process.env.REACT_APP_API_URL}/curriculums`;
     const config = {
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${document.cookie.split('=')[1]}`
       }
     }
     const body = {...filters};
@@ -47,9 +62,9 @@ export default function Home() {
 
   return (
     <div className='bg-white container mx-auto p-2 md:p-10 flex flex-col md:flex-row'>
-      <div className="w-full md:w-72 md:pt-5">
+      {/* <div className="w-full md:w-72 md:pt-5">
         <Searcher search={search}/>
-      </div>
+      </div> */}
 
       <Divider orientation="vertical" variant="middle" flexItem className="hidden mx-10 md:inline-flex"/>
       <Divider orientation="horizontal" variant="middle" flexItem className=" my-5 md:hidden"/>

@@ -37,7 +37,7 @@ export const AuthProvider = ({children}: IProps) => {
       console.log(user_data);
   
       const user: IUser = {
-        ...data.user,
+        ...user_data.user,
         ...credentials,
       }
 

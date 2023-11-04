@@ -1,4 +1,4 @@
-import {FormEvent} from 'react';
+import {FormEvent, useEffect} from 'react';
 import {Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -23,11 +23,15 @@ export default function SignIn() {
 
   const {auth, login} = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (auth.loggedIn) navigate('/curriculum');
+  }, []);
   
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const result = await login(formData);
-    if (result === "") navigate('/home'); //logged in
+    if (result === "") navigate('/curriculum'); //logged in
     else alert(result);
   };
 
