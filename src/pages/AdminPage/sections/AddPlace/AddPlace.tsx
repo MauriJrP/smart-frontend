@@ -80,7 +80,7 @@ export default function AddPlace() {
       }
     }
 
-    const res = await (await axios.post(url, formData, config)).data[0];
+    const res = await (await axios.post(url, formData, config)).data;
     if (res.message) {
       alert(res.message);
       return -1; 
@@ -101,13 +101,13 @@ export default function AddPlace() {
       gallery.images.forEach((image: any) => formData.append('images', image.file));
       formData.append('name', gallery.name);
       formData.append('placeId', placeId.toString());
-      const data = await (await axios.post(url, formData, config)).data[0];
+      const data = await (await axios.post(url, formData, config)).data;
     })
     // const formData: FormData = new FormData();
     // galleries[0].images.forEach((image: any) => formData.append('images', image.file));
     // formData.append('name', galleries[0].name);
     // formData.append('placeId', placeId.toString());
-    // const data = await (await axios.post(url, formData, config)).data[0];
+    // const data = await (await axios.post(url, formData, config)).data;
   }
 
   return (

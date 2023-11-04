@@ -1,7 +1,7 @@
 import { IAuth, IPlanCreation, IPlace, IComment } from "../types"
 
 export interface ICredentials {
-  email: string,
+  code: string,
   password: string
 }
 

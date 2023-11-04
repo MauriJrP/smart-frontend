@@ -14,7 +14,7 @@ export default function Home() {
   useEffect(() => {
     const url = `${process.env.REACT_APP_API_URL}/places/page/${page}`;
     const fetchPlaces = async () => {
-      const res = await (await axios.get(url)).data[0];
+      const res = await (await axios.get(url)).data;
       setPlaces(res.places);
     }
 
@@ -36,7 +36,7 @@ export default function Home() {
 
     const fetchPlaces = async () => {
       console.log("test")
-      const res = await (await axios.post(url, body, config)).data[0];
+      const res = await (await axios.post(url, body, config)).data;
       if (res.message === "ok")
         setPlaces(res.places);
       else alert(res.message)

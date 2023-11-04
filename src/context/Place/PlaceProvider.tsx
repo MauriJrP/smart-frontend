@@ -35,13 +35,13 @@ export const PlaceProvider = ({children}: IProps) => {
 
   const loadPlace = async (idPlace: string) => {
     const urlPlaces = `${process.env.REACT_APP_API_URL}/places/place/${idPlace}`;
-    const placeData = await (await axios.get(urlPlaces)).data[0];
+    const placeData = await (await axios.get(urlPlaces)).data;
     // console.log(placeData.galleries[0].images[0].photo);
     dispatch({type: 'setPlace', payload: placeData});
 
     // -------- ------- ------ ----- Load comments ----- ------ ------- --------
     const urlComments = `${process.env.REACT_APP_API_URL}/comments/${idPlace}`;
-    const commentsData = await (await axios.get(urlComments)).data[0];
+    const commentsData = await (await axios.get(urlComments)).data;
     setComments([]);
     commentsData.comments.forEach((comment: any) => {
       setComments(prevState => {
@@ -68,14 +68,14 @@ export const PlaceProvider = ({children}: IProps) => {
       idPlace
     }
 
-    const data = await (await axios.post(url, body, config)).data[0];
+    const data = await (await axios.post(url, body, config)).data;
     if (data.message === 'ok') loadPlace(idPlace.toString());
     else alert(data.message);
   }
 
   const deleteComment = async (idComment: number, idPlace: number) => {
     const url = `${process.env.REACT_APP_API_URL}/comments/${idComment}`
-    const data = await (await axios.delete(url)).data[0];
+    const data = await (await axios.delete(url)).data;
     if (data.message === 'ok') loadPlace(idPlace.toString());
     else alert(data.message);
   }

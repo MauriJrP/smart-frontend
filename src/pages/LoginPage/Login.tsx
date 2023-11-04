@@ -11,13 +11,13 @@ import { useAuth } from '../../hooks/useAuth';
 const theme = createTheme();
 
 interface IFormData {
-  email: string;
+  code: string;
   password: string;
 }
 
 export default function SignIn() {
   const {formData, handleInputChange} = useForm<IFormData>({
-    email: '',
+    code: '',
     password: '',
   });
 
@@ -56,28 +56,28 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              label="Correo electrónico"
-              name="email"
-              autoComplete="email"
+              label="Codigo"
+              name="code"
+              autoComplete="code"
               autoFocus
               onChange={handleInputChange}
-              value={formData.email}
+              value={formData.code}
             />
             <TextField
               margin="normal"
               required
               fullWidth
               name="password"
-              label="Contraseña"
+              label="NIP"
               type="password"
               autoComplete="current-password"
               onChange={handleInputChange}
               value={formData.password}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Recordarme"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth
@@ -87,16 +87,11 @@ export default function SignIn() {
               Iniciar sesión
             </Button>
             <Grid container>
-              <Grid item xs>
+              {/* <Grid item xs>
                 <Link href="#" variant="body2">
                   ¿Olvidaste tu contraseña?
                 </Link>
-              </Grid>
-              <Grid item>
-                <Link component={RouterLink} to="/register" variant="body2">
-                  {"¿No tienes cuenta? Regístrate"}
-                </Link>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Box>
         </Box>

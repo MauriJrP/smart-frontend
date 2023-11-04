@@ -32,7 +32,7 @@ export default function ImageUploader({ images, setImages }: IProps) {
 
   //   const formData: FormData = new FormData();
   //   images.forEach((image: any) => formData.append('images', image.file));
-  //   const data = await (await axios.post(url, formData, config)).data[0];
+  //   const data = await (await axios.post(url, formData, config)).data;
   // }
 
   return (
