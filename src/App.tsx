@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-d
 import Navbar from './components/Navbar';
 import { AuthProvider } from './context/Auth/AuthProvider';
 import AdminPage from './pages/AdminPage/AdminPage';
-// import AddPlace from './pages/AdminPage/sections/AddPlace/AddPlace';
+import Curriculums from './pages/SmartPage/sections/Curriculums/Curriculums';
 import SmartPage from './pages/SmartPage/SmartPage';
 import Curriculum from './pages/CurriculumPage/Curriculum';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
@@ -29,7 +29,10 @@ export default function App() {
               {/* <Route path="add-place" element={<AddPlace />} /> */}
             </Route>
             <Route path="/smart/*" element={<SmartPage />}>
-              {/* <Route path="add-place" element={<AddPlace />} /> */}
+              <Route path="curriculums" element={<Curriculums />} />
+              {/* <Route path="add-curriculum" element={<Curriculums />} />
+              <Route path="students" element={<Curriculums />} />
+              <Route path="reports" element={<Curriculums />} /> */}
             </Route>
           </Route>
         </Routes>
