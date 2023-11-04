@@ -27,12 +27,16 @@ export default function SignIn() {
   useEffect(() => {
     if (auth.loggedIn) navigate('/curriculum');
   }, []);
+
+  useEffect(() => {
+    if (auth.loggedIn) navigate('/curriculum');
+  } , [auth.loggedIn]);
+
   
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const result = await login(formData);
-    if (result === "") navigate('/curriculum'); //logged in
-    else alert(result);
+    if (result !== "") alert(result);
   };
 
 
