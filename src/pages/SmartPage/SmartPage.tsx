@@ -18,9 +18,9 @@ export default function SmartPage() {
         <Button>
           <NavLink to="reports" className={({ isActive }) => isActive ? 'text-black ' : 'hover:text-gray-500'}>Reportes</NavLink>
         </Button>
-        <Button>
+        {/* <Button>
           <NavLink to="remove-place" className={({ isActive }) => isActive ? 'text-black ' : 'hover:text-gray-500'}>Reportes</NavLink>
-        </Button>
+        </Button> */}
       </ButtonGroup>
 
       <Outlet />
