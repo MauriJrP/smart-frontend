@@ -1,21 +1,24 @@
-import { Divider, Pagination } from "@mui/material";
-import Searcher from "./components/Searcher";
-import PlaceCard from "./components/PlaceCard";
-// import {places} from "../../data"
-import {IFilters, IPlace} from "./types";
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import { useAuth } from "../../hooks/useAuth";
 import {useNavigate} from 'react-router-dom';
 import { useCookies } from "react-cookie";
 
+import { Box, TableContainer, Table, TableHead, TableCell, TableRow, TableBody } from "@mui/material";
+
 
 export default function Curriculum() {
-  const [places, setPlaces] = useState<IPlace[]>([]);
-  const [page, setPage] = useState<number>(1);
   const {auth} = useAuth();
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const navigate = useNavigate();
+  const [curriculumData, setCurriculumData] = useState<any[]>([] as any[]);
+  const [studentCurriculum, setStudentCurriculum] = useState<any[]>([] as any[]);
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${cookies.token}`
+    }
+  }
+
 
   useEffect(() => {
     if (auth.user){
@@ -28,61 +31,113 @@ export default function Curriculum() {
       }
     }
 
-    const url = `${process.env.REACT_APP_API_URL}/curriculums`;
-    const fetchPlaces = async () => {
-      const res = await (await axios.get(url)).data;
-      setPlaces(res.places);
+    const urlCurriculum = `${process.env.REACT_APP_API_URL}/curriculums/student`;
+    console.log(`url: ${urlCurriculum}`)
+    console.log(`config: ${config.headers.Authorization}`)
+    const fetchCurriculum = async () => {
+      const res = await (await axios.get(urlCurriculum, config)).data;
+      if (res.message === "success")
+        setCurriculumData(res.curriculum);
+      else alert(res.message)
+      
     }
-
-    fetchPlaces();
-  }, [])
-
-  const search = (filters: IFilters) => {
-    const url = `${process.env.REACT_APP_API_URL}/curriculums`;
-    const config = {
-      headers: {
-        'Content-type': 'application/json',
-        'Authorization': `Bearer ${cookies.token}`
-      }
-    }
-    const body = {...filters};
-    if (filters.price && filters.price >= 100000) {
-      alert("Precio demasiado alto");
-      return;
-    }
-
-    const fetchPlaces = async () => {
-      console.log("test")
-      const res = await (await axios.post(url, body, config)).data;
-      if (res.message === "ok")
-        setPlaces(res.places);
+    const urlStudentCurriculum = `${process.env.REACT_APP_API_URL}/students/subjects`;
+    console.log(`url: ${urlStudentCurriculum}`)
+    console.log(`config: ${config.headers.Authorization}`)
+    const fetchStudentCurriculum = async () => {
+      const res = await (await axios.get(urlStudentCurriculum, config)).data;
+      if (res.message === "success")
+        setStudentCurriculum(res.subjects);
       else alert(res.message)
     }
 
-    fetchPlaces();
-  }
+    fetchCurriculum();
+    fetchStudentCurriculum();
+  }, [])
+  
+  const tableHeadLabels = [
+    'Semestre',
+    'Clave',
+    'Nombre',
+    'Creditos',
+    'Horas',
+    'Competencias',
+    'Modulo',
+    'Cursada',
+];
+
+const tableHeadLabels2 = [
+  'nrc',
+  'Clave',
+  'Nombre',
+  'Creditos',
+  'Horas',
+  'Competencias',
+  'Modulo',
+  'tipo',
+];
 
   return (
-    <div className='bg-white container mx-auto p-2 md:p-10 flex flex-col md:flex-row'>
-      {/* <div className="w-full md:w-72 md:pt-5">
-        <Searcher search={search}/>
-      </div> */}
+    <>
+    <Box component="form" sx={{ mt: 3 }}>
+      <TableContainer className="m-4 p-4 border border-gray-300 rounded-lg shadow-lg">
+        <Table className="min-w-full">
+          <TableHead>
+            <TableRow className="bg-gray-200">
+              {tableHeadLabels.map((label, index) => (
+                <TableCell key={index} className="font-bold text-gray-700 py-2">
+                  {label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {curriculumData.map((subject, index) => (
+              <TableRow key={index}>
+                <TableCell>{/*subject.subject.semester_number*/0}</TableCell>
+                <TableCell>{subject.subject.clave}</TableCell>
+                <TableCell>{subject.subject.name}</TableCell>
+                <TableCell>{subject.subject.credits}</TableCell>
+                <TableCell>{subject.subject.total_hours}</TableCell>
+                <TableCell>{subject.subject.competences}</TableCell>
+                <TableCell>{subject.subject.module}</TableCell>
+                <TableCell>{/*isTaken()*/}yes</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
 
-      <Divider orientation="vertical" variant="middle" flexItem className="hidden mx-10 md:inline-flex"/>
-      <Divider orientation="horizontal" variant="middle" flexItem className=" my-5 md:hidden"/>
-
-      <div className="w-full md:w-3/4 flex flex-col">
-        <div className=" h-192 overflow-auto pr-4 grid gap-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-          {
-            places.map(place => {
-              return <PlaceCard key={place.idPlace} place={place} />}
-            )
-          }
-        </div>
-
-        <Divider orientation="horizontal" variant="middle" flexItem className=" my-5 "/>
-        <Pagination count={10} color="secondary" className="self-center" />
-      </div>
-    </div>
+    <Box component="form" sx={{ mt: 3 }}>
+    <TableContainer className="m-4 p-4 border border-gray-300 rounded-lg shadow-lg">
+      <Table className="min-w-full">
+        <TableHead>
+          <TableRow className="bg-gray-200">
+            {tableHeadLabels2.map((label, index) => (
+              <TableCell key={index} className="font-bold text-gray-700 py-2">
+                {label}
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {studentCurriculum.map((subject, index) => (
+            <TableRow key={index}>
+              <TableCell>{subject.nrc}</TableCell>
+              <TableCell>{subject.subject.clave}</TableCell>
+              <TableCell>{subject.subject.name}</TableCell>
+              <TableCell>{subject.subject.credits}</TableCell>
+              <TableCell>{subject.subject.total_hours}</TableCell>
+              <TableCell>{subject.subject.competences}</TableCell>
+              <TableCell>{subject.subject.module}</TableCell>
+              <TableCell>{subject.type}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    </Box>
+    </>
   )
 }
