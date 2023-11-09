@@ -6,13 +6,16 @@ import { useCookies } from "react-cookie";
 
 import { Box, TableContainer, Table, TableHead, TableCell, TableRow, TableBody } from "@mui/material";
 
+import { subjectData, curriculumData, ApiResponse } from './types';
+
 
 export default function Curriculum() {
   const {auth} = useAuth();
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const navigate = useNavigate();
-  const [curriculumData, setCurriculumData] = useState<any[]>([] as any[]);
+  const [curriculumData, setCurriculumData] = useState<subjectData[] | null>(null);
   const [studentCurriculum, setStudentCurriculum] = useState<any[]>([] as any[]);
+  const [clavesArray, setClavesArray] = useState<string[]>([]);
   const config = {
     headers: {
       'Authorization': `Bearer ${cookies.token}`
@@ -31,25 +34,56 @@ export default function Curriculum() {
       }
     }
 
+    const filterTakenSubjects = (subjects: any[]) => {
+      // Filter subjects with grade not null and greater or equal to 60
+      const filteredSubjects = subjects.filter(subject => subject.grade !== null && subject.grade >= 60);
+    
+      // Extract and store claves in an array
+      const claves = filteredSubjects.map(subject => subject.subject.clave);
+    
+      // Do something with the clavesArray, for example, log it
+      console.log('Filtered Claves:', claves);
+    
+      // Return the clavesArray or use it as needed in your application
+      return claves;
+    };
+
     const urlCurriculum = `${process.env.REACT_APP_API_URL}/curriculums/student`;
     console.log(`url: ${urlCurriculum}`)
     console.log(`config: ${config.headers.Authorization}`)
     const fetchCurriculum = async () => {
-      const res = await (await axios.get(urlCurriculum, config)).data;
-      if (res.message === "success")
-        setCurriculumData(res.curriculum);
-      else alert(res.message)
-      
-    }
+      try {
+        const res = await axios.get<ApiResponse>(urlCurriculum, config);
+        const { message, curriculum } = res.data;
+    
+        if (message === "success") {
+          setCurriculumData(curriculum.subjects);
+        } else {
+          console.error("Error fetching curriculum:", message);
+        }
+      } catch (error) {
+        console.error("Error fetching curriculum:", error);
+      }
+    };
+  
+
     const urlStudentCurriculum = `${process.env.REACT_APP_API_URL}/students/subjects`;
     console.log(`url: ${urlStudentCurriculum}`)
     console.log(`config: ${config.headers.Authorization}`)
     const fetchStudentCurriculum = async () => {
-      const res = await (await axios.get(urlStudentCurriculum, config)).data;
-      if (res.message === "success")
+      const res = await axios.get(urlStudentCurriculum, config).then(res => res.data);
+    
+      if (res.message === "success") {
         setStudentCurriculum(res.subjects);
-      else alert(res.message)
-    }
+    
+        // Call the filterAndStoreSubjects function with the subjects data
+        setClavesArray(filterTakenSubjects(res.subjects));
+        console.log(clavesArray);
+        
+      } else {
+        alert(res.message);
+      }
+    };
 
     fetchCurriculum();
     fetchStudentCurriculum();
@@ -66,19 +100,9 @@ export default function Curriculum() {
     'Cursada',
 ];
 
-const tableHeadLabels2 = [
-  'nrc',
-  'Clave',
-  'Nombre',
-  'Creditos',
-  'Horas',
-  'Competencias',
-  'Modulo',
-  'tipo',
-];
 
-  return (
-    <>
+return (
+  <>
     <Box component="form" sx={{ mt: 3 }}>
       <TableContainer className="m-4 p-4 border border-gray-300 rounded-lg shadow-lg">
         <Table className="min-w-full">
@@ -92,52 +116,33 @@ const tableHeadLabels2 = [
             </TableRow>
           </TableHead>
           <TableBody>
-            {curriculumData.map((subject, index) => (
+          {curriculumData === null ? (
+            <TableRow>
+              <TableCell colSpan={tableHeadLabels.length}>Loading...</TableCell>
+            </TableRow>
+          ) : curriculumData.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={tableHeadLabels.length}>No data available</TableCell>
+            </TableRow>
+          ) : (
+            curriculumData.map((subject, index) => (
               <TableRow key={index}>
-                <TableCell>{/*subject.subject.semester_number*/0}</TableCell>
-                <TableCell>{subject.subject.clave}</TableCell>
-                <TableCell>{subject.subject.name}</TableCell>
-                <TableCell>{subject.subject.credits}</TableCell>
-                <TableCell>{subject.subject.total_hours}</TableCell>
-                <TableCell>{subject.subject.competences}</TableCell>
-                <TableCell>{subject.subject.module}</TableCell>
-                <TableCell>{/*isTaken()*/}yes</TableCell>
+                <TableCell>{/*semester_number*/0}</TableCell>
+                <TableCell>{subject.clave}</TableCell>
+                <TableCell>{subject.name}</TableCell>
+                <TableCell>{subject.credits}</TableCell>
+                <TableCell>{subject.total_hours}</TableCell>
+                <TableCell>{subject.competences}</TableCell>
+                <TableCell>{subject.module}</TableCell>
+                <TableCell>{clavesArray.includes(subject.clave) ? 'Sí' : 'No'}</TableCell>
               </TableRow>
-            ))}
+            ))
+          )}
+
           </TableBody>
         </Table>
       </TableContainer>
     </Box>
-
-    <Box component="form" sx={{ mt: 3 }}>
-    <TableContainer className="m-4 p-4 border border-gray-300 rounded-lg shadow-lg">
-      <Table className="min-w-full">
-        <TableHead>
-          <TableRow className="bg-gray-200">
-            {tableHeadLabels2.map((label, index) => (
-              <TableCell key={index} className="font-bold text-gray-700 py-2">
-                {label}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {studentCurriculum.map((subject, index) => (
-            <TableRow key={index}>
-              <TableCell>{subject.nrc}</TableCell>
-              <TableCell>{subject.subject.clave}</TableCell>
-              <TableCell>{subject.subject.name}</TableCell>
-              <TableCell>{subject.subject.credits}</TableCell>
-              <TableCell>{subject.subject.total_hours}</TableCell>
-              <TableCell>{subject.subject.competences}</TableCell>
-              <TableCell>{subject.subject.module}</TableCell>
-              <TableCell>{subject.type}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    </Box>
-    </>
-  )
+  </>
+);
 }

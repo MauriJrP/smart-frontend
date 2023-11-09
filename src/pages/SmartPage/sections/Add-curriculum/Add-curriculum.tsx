@@ -19,52 +19,7 @@ export default function Curriculums() {
             'Authorization': `Bearer ${cookies.token}`
         }
     }
-    const body = {
-      "name": "Ingeniería en Sistemas Computacionales",
-      "clave": "ABC",
-      "date": "2020-01-02",
-      "total_credits": 300,
-      "subjects": [
-          {
-              "clave": "TC1001",
-              "name": "Fundamentos de programación",
-              "credits": 4,
-              "semester_number": 1,
-              "total_hours": 64,
-              "competences": "lorem ipsum",
-              "module": "lorem ipsum"
-          },
-          {
-              "clave": "TC1002",
-              "name": "Estructuras de datos",
-              "credits": 4,
-              "semester_number": 2,
-              "total_hours": 64,
-              "competences": "lorem ipsum",
-              "module": "lorem ipsum"
-          },
-          {
-              "clave": "TC1003",
-              "name": "Estructuras de datos avanzadas",
-              "credits": 4,
-              "semester_number": 3,
-              "total_hours": 64,
-              "competences": "lorem ipsum",
-              "module": "lorem ipsum"
-          },
-          {
-              "clave": "I7022",
-              "name": "FUNDAMENTOS FILOSOFICOS DE LA COMPUTACION",
-              "credits": 8,
-              "semester_number": 1,
-              "total_hours": 64,
-              "competences": "lorem ipsum",
-              "module": "lorem ipsum"
-          }
-      ]
-  
-  
-    }
+    
 
     const [formData, setFormData] = useState<{
         name: string;

@@ -1,14 +1,24 @@
-export interface IPlace {
-  idPlace: number;
+export interface subjectData {
+  clave: string;
+  competences: string;
+  credits: number;
+  id: number;
+  module: string;
   name: string;
-  description: string;
-  rating: number;
-  photo: string;
+  total_hours: number;
 }
 
-export interface IFilters {
-  idPlaceType?: number;
-  idLocation?: number;
-  price?: number;
-  rating?: number;
+export interface curriculumData {
+  clave: string;
+  date: string;
+  id: number;
+  id_user: number;
+  name: string;
+  subjects: subjectData[];
+  total_credits: number;
+}
+
+export interface ApiResponse {
+  curriculum: curriculumData;
+  message: string;
 }
