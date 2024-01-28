@@ -67,7 +67,6 @@ export default function Reports() {
 
     return (
         <>
-
             <Box component="form" sx={{ mt: 3 }}>
                 <Grid container spacing={3}>
                         {reports.map(report => (

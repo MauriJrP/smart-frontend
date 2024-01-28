@@ -5,7 +5,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from "react-cookie";
 
-import { Box, TableContainer, Table, TableHead, TableCell, TableRow, TableBody } from "@mui/material";
+import { Box, Grid, Card } from "@mui/material";
 
 import { subjectData, curriculumData, ApiResponse } from './types';
 
@@ -109,15 +109,16 @@ export default function Curriculum() {
   ];
 
   const modulesColors = [
-    'bg-blue-500',
-    'bg-green-500',
-    'bg-yellow-500',
-    'bg-red-500',
-    'bg-purple-500',
-    'bg-pink-500',
-    'bg-indigo-500',
-    'bg-gray-500',
+    'bg-blue-400',    // Soft blue
+    'bg-green-400',   // Muted green
+    'bg-yellow-400',  // Gentle yellow
+    'bg-red-400',     // Muted red
+    'bg-purple-400',  // Soft purple
+    'bg-pink-400',    // Pastel pink
+    'bg-indigo-400',  // Light indigo
+    'bg-gray-400',    // Light gray
   ];
+  
 
 
   // associate each module with a color each curriculum will have different modules
@@ -126,54 +127,63 @@ export default function Curriculum() {
 
   return (
     <>
-      <div className={`subject grid grid-cols-${semesterCount} gap-4 px-10 pt-10`}>
-        {
-          [...Array(semesterCount)].map((_, i) => (
-            <div className="bg-slate-700 text-white font-bold py-2 px-4 rounded-md cursor-pointer text-center" key={i}>
-              {i + 1}
-            </div>
-          ))
-        }
-      </div>
-      <div className={`subject grid grid-cols-${semesterCount} gap-4 p-10`}>
-        {
-          [...Array(semesterCount)].map((_, i) => (
-            <div className="bg-slate-800 text-white font-bold py-2 px-4 rounded-sm cursor-pointer" key={i}>
-              {
-                curriculumData?.map((subject, index) => (
-                  // associate the module with a color if it is not already associated
-                  modulesColorsMap.has(subject.module) ? null : modulesColorsMap.set(subject.module, modulesColors.pop() as string),
-                  subject.semester_number === i + 1 ? (
+      <Box component="form">
+        <Grid container columns={semesterCount} columnSpacing={0.5} px={5} pt={5} >
+          {
+            [...Array(semesterCount)].map((_, i) => (
+              <Grid item xs={1} key={i}>
+                <Card className="bg-slate-700 text-white font-bold py-2 px-4 rounded-sm cursor-pointer text-center">
+                  {i + 1}
+                </Card>
+              </Grid>
+            ))
+          }
+        </Grid>
+      </Box>
 
-                    <div className={`${modulesColorsMap.get(subject.module)}  text-white font-bold py-2 px-4 my-2 cursor-pointer`} key={index}>
-                      {console.log(modulesColorsMap.get(subject.module))}
-                      <div className="bg-blue-500  text-white font-bold py-2 px-4 my-2 cursor-pointer flex flex-row space-x-4 w-full">
-                        <p>{subject.clave}</p>
-                        <p>{subject.semester_number}</p>
-                      </div>
+      <Box component="form">
+        <Grid container columns={semesterCount} spacing={0.5} px={5} pt={2} >
+          {
+            [...Array(semesterCount)].map((_, i) => (
+              <Grid item  key={i} xs={1} >
+                {
+                  curriculumData?.map((subject, index) => (
+                    // associate the module with a color if it is not already associated
+                    modulesColorsMap.has(subject.module) ? null : modulesColorsMap.set(subject.module, modulesColors.pop() as string),
+                    subject.semester_number === i + 1 ? (
 
-                      {subject.name}
-                      {subject.credits}
-                    </div>
-                  ) : null
-                ))
-              }
-            </div>
-          ))
-        }
-      </div>
-      <div className="flex justify-center w-full">
-        <div className='w-1/2'>
+                      <Card className={`${modulesColorsMap.get(subject.module)}  text-white font-bold py-2 px-4 my-2 rounded-sm cursor-pointer`} key={index}>
+                        {console.log(modulesColorsMap.get(subject.module))}
+                        <div className="bg-slate-500  text-white font-bold py-2 px-4 my-2 cursor-pointer flex flex-row space-x-4 w-full">
+                          <p>{subject.clave}</p>
+                          <p>{subject.semester_number}</p>
+                        </div>
+
+                        <div className="info ">
+                          <p>{subject.name}</p>
+                          <p>{subject.credits}</p>
+                        </div>
+                      </Card>
+                    ) : null
+                  ))
+                }
+              </Grid>
+            ))
+          }
+        </Grid>
+      </Box>
+
+      <div className="w-full pt-2">
+        <div className='flex justify-center gap-4'>
           {
             Array.from(modulesColorsMap).map(([key, value]) => (
-              <div key={key} className={`${value} text-white font-bold py-2 px-4 cursor-pointer w-fit`}>
-                <p>{key}</p>
+              <div key={key} className={` text-white font-bold py-2 px-4 cursor-pointer w-fit flex gap-1 items-center justify-center`}>
+                <div className={`w-4 h-4 ${value} rounded-full`}></div>
+                <p className="text-black">{key}</p>
               </div>
             ))
           }
         </div>
-
-
       </div>
     </>
   );
