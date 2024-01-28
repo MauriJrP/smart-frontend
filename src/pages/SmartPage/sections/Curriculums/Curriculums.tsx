@@ -42,7 +42,7 @@ export default function Curriculums() {
                     {curriculums.map(curriculum => (
                         <Grid item key={curriculum.id} xs={12} sm={6} md={4}>
                             <Card
-                                className="cursor-pointer"
+                                className="cursor-pointer bg-light shadow-sm hover:shadow-lg transition-shadow"
                                 onClick={() => handleCardClick(curriculum.id)}
                             >
                                 <CardContent>
@@ -63,14 +63,14 @@ export default function Curriculums() {
                         </Grid>
                     ))}
                 </Grid>
-                <Button
+                {/* <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                 >
                     Agregar Malla
-                </Button>
+                </Button> */}
             </Box>
         </>
     )

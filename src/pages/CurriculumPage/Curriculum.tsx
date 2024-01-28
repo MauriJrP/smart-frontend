@@ -132,7 +132,7 @@ export default function Curriculum() {
           {
             [...Array(semesterCount)].map((_, i) => (
               <Grid item xs={1} key={i}>
-                <Card className="bg-slate-700 text-white font-bold py-2 px-4 rounded-sm cursor-pointer text-center">
+                <Card className="bg-primary text-white font-bold py-2 px-4 rounded-sm  text-center">
                   {i + 1}
                 </Card>
               </Grid>
@@ -152,16 +152,16 @@ export default function Curriculum() {
                     modulesColorsMap.has(subject.module) ? null : modulesColorsMap.set(subject.module, modulesColors.pop() as string),
                     subject.semester_number === i + 1 ? (
 
-                      <Card className={`${modulesColorsMap.get(subject.module)}  text-white font-bold py-2 px-4 my-2 rounded-sm cursor-pointer`} key={index}>
+                      <Card className={`${modulesColorsMap.get(subject.module)}  text-white font-bold py-2 px-4 my-2 rounded-sm `} key={index}>
                         {console.log(modulesColorsMap.get(subject.module))}
-                        <div className="bg-slate-500  text-white font-bold py-2 px-4 my-2 cursor-pointer flex flex-row space-x-4 w-full">
+                        <div className="bg-slate-500  text-white font-bold py-2 px-4 my-2  flex flex-row space-x-4 w-full">
                           <p>{subject.clave}</p>
                           <p>{subject.semester_number}</p>
                         </div>
 
                         <div className="info ">
                           <p>{subject.name}</p>
-                          <p>{subject.credits}</p>
+                          <p>Creditos: {subject.credits}</p>
                         </div>
                       </Card>
                     ) : null
@@ -177,9 +177,9 @@ export default function Curriculum() {
         <div className='flex justify-center gap-4'>
           {
             Array.from(modulesColorsMap).map(([key, value]) => (
-              <div key={key} className={` text-white font-bold py-2 px-4 cursor-pointer w-fit flex gap-1 items-center justify-center`}>
+              <div key={key} className={` text-white font-bold py-2 px-4 w-fit flex gap-1 items-center justify-center`}>
                 <div className={`w-4 h-4 ${value} rounded-full`}></div>
-                <p className="text-black">{key}</p>
+                <p className="text-black">C{key}</p>
               </div>
             ))
           }
