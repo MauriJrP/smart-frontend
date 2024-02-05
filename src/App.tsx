@@ -10,6 +10,7 @@ import Add_Curriculum from './pages/SmartPage/sections/Add-curriculum/Add-curric
 import RemovePlace from './pages/SmartPage/sections/RemovePlace/RemovePlace';
 import Students from './pages/SmartPage/sections/Students/Students';
 import Reports from './pages/SmartPage/sections/Reports/Reports';
+import Report from './pages/SmartPage/sections/Reports/Report';
 
 import Curriculum from './pages/CurriculumPage/Curriculum';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
@@ -39,7 +40,9 @@ export default function App() {
               <Route path="remove-place" element={<RemovePlace />} />
               <Route path="add-curriculum" element={<Add_Curriculum />} />
               <Route path="students" element={<Students />} />
-              <Route path="reports" element={<Reports />} />
+              <Route path="reports/*" element={<Reports />}>
+                <Route path="report/:id" element={<Report />} />
+              </Route>
             </Route>
           </Route>
         </Routes>

@@ -5,7 +5,7 @@ import { useForm } from '../../../../hooks/useForm';
 import axios from 'axios';
 import { useAuth } from '../../../../hooks/useAuth';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 
 
 export default function Reports() {
@@ -47,7 +47,7 @@ export default function Reports() {
     // }, [])
 
     const handleCardClick = (id: number) => {
-        navigate(`/curriculum/${id}`);
+        navigate(`report/${id}`);
     };
 
     const tableHeadLabels = [
@@ -88,38 +88,10 @@ export default function Reports() {
                         ))}
                     </Grid>
 
-                <TableContainer className="m-4 p-4 border border-gray-300 rounded-lg shadow-lg">
-                    <Table className="min-w-full">
-                        <TableHead>
-                            <TableRow className="bg-gray-200">
-                                {tableHeadLabels.map((label, index) => (
-                                    <TableCell key={index} className="font-bold text-gray-700 py-2">
-                                        {label}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {students.map((student, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>{student.admission_cycle}</TableCell>
-                                    <TableCell>{student.admission_cycle_calendar}</TableCell>
-                                    <TableCell>{student.average}</TableCell>
-                                    <TableCell>{student.campus}</TableCell>
-                                    <TableCell>{student.career}</TableCell>
-                                    <TableCell>{student.code}</TableCell>
-                                    <TableCell>{student.current_credits}</TableCell>
-                                    <TableCell>{student.first_name}</TableCell>
-                                    <TableCell>{student.last_cycle}</TableCell>
-                                    <TableCell>{student.last_cycle_desc}</TableCell>
-                                    <TableCell>{student.last_name}</TableCell>
-                                    <TableCell>{student.status}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+
             </Box>
+
+            <Outlet />
         </>
     )
 }

@@ -1,7 +1,7 @@
 {
-  "name": "tourist-guide",
+  "name": "smart",
   "version": "0.1.0",
-  "homepage": "https://maurijrp.github.io/tourist-guide",
+  "homepage": "https://maurijrp.github.io/smart",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^2.13.2",
